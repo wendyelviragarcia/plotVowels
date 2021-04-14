@@ -28,8 +28,8 @@ server <- function(input, output) {
         #df <- read_textgrid(input$file1$datapath[1])
         nFiles<- length(input$file1$datapath)
         files<- input$file1$datapath
-        #vowelData <- read.table("/Users/weg/OneDrive - UNED/git-me/vowelFigures/vocales.csv", sep=";", header = TRUE, stringsAsFactors =TRUE)
-        #vowelData <- read_excel("/Users/weg/OneDrive - UNED/git-me/vowelFigures/vocales.xlsx")
+        #vowelData <- read.table("/Users/weg/OneDrive - UNED/git-me/plotVowels/vocales.csv", sep=";", header = TRUE, stringsAsFactors =TRUE)
+        #vowelData <- read_excel("/Users/weg/OneDrive - UNED/git-me/plotVowels/vocales.xlsx")
         
         fileName<- input$file1$name[1]
         #vowelData <- read.table(files[1], sep=";", header = TRUE, stringsAsFactors =TRUE)
@@ -37,17 +37,23 @@ server <- function(input, output) {
         vowelData$vocal <- as.factor(vowelData$vocal)
         
         colors <- rainbow(nlevels(vowelData$vocal))[as.numeric(vowelData$vocal)]
+        attach(vowelData)
         
         #plot formants, using painted big dots and colors given by the vector we created
-        formantPlot <- scatterplot3d(vowelData$f1,vowelData$f3,vowelData$f2, pch=NA, color=colors, type="p",
-                                     main="",xlab="F1",ylab="F3", zlab="F2")
+        f2_rev <- max(vowelData$f2) - vowelData$f2
+        f1_rev <- max(vowelData$f1) - vowelData$f1
+        
+        formantPlot <- scatterplot3d(f2_rev,vowelData$f3,f1_rev, pch=NA, color=colors, type="p",
+                                     main="",xlab="F2",ylab="F3", zlab="F1", 
+                                     x.ticklabs = seq(pretty(max(f2_rev))[1], pretty(min(f2_rev))[1], -200),
+                                     z.ticklabs = seq(pretty(max(f1_rev))[1], pretty(min(f1_rev))[1], -200))
         ## create labels
-        #find label position
-        attach(vowelData)
-        formantPlot.coords <- formantPlot$xyz.convert(f1, f3, f2) # convert 3D coords to 2D projection
+        #find label position z.ticklabs = seq(max(z_rev), min(z_rev), -2))
+        formantPlot.coords <- formantPlot$xyz.convert(f2_rev, f3, f1_rev) # convert 3D coords to 2D projection
         
         #write labels$
-
+        text(formantPlot.coords$x,formantPlot.coords$y, cex=1, pos=1, labels = vowelData$vocal, col= colors,srt = 45)
+        #text(x = 5, y = -2.5, "Y-axis", srt = 45)
         
        
        
@@ -61,8 +67,10 @@ server <- function(input, output) {
             
           } else if (input$display == "threeD"){
               output$plot2 <- renderPlot({
-                scatterplot3d(vowelData$f1,vowelData$f3,vowelData$f2, pch=NA, color=colors, type="p",
-                              main="",xlab="F1",ylab="F3", zlab="F2")
+                scatterplot3d(f2_rev,vowelData$f3,f1_rev, pch=NA, color=colors, type="p",
+                              main="",xlab="F2",ylab="F3", zlab="F1", 
+                              x.ticklabs = seq(pretty(max(f2_rev))[1], pretty(min(f2_rev))[1], -200),
+                              z.ticklabs = seq(pretty(max(f1_rev))[1], pretty(min(f1_rev))[1], -200))
                 text(formantPlot.coords$x,formantPlot.coords$y, cex=1, pos=1, labels = vowelData$vocal, col= colors)
                            }) 
           } 
@@ -72,8 +80,10 @@ server <- function(input, output) {
             }) 
             
             output$plot2 <- renderPlot({
-              scatterplot3d(vowelData$f1,vowelData$f3,vowelData$f2, pch=NA, color=colors, type="p",
-                            main="",xlab="F1",ylab="F3", zlab="F2")
+              scatterplot3d(f2_rev,vowelData$f3,f1_rev, pch=NA, color=colors, type="p",
+                            main="",xlab="F2",ylab="F3", zlab="F1", 
+                            x.ticklabs = seq(pretty(max(f2_rev))[1], pretty(min(f2_rev))[1], -200),
+                            z.ticklabs = seq(pretty(max(f1_rev))[1], pretty(min(f1_rev))[1], -200))
               text(formantPlot.coords$x,formantPlot.coords$y, cex=1, pos=1, labels = vowelData$vocal, col= colors)              }) 
           } 
         
