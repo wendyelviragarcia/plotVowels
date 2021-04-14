@@ -7,10 +7,12 @@
  
 ## Input
  An Excel file  with formant values and the following format:
-  label F1 F2 F3
+  
 vocal | f1 | f2 | f3
 ------------ | ------------- | ------------- | -------------
 a | 1000 | 1500| 3000
+a | 1001 | 1520| 3020
+a | 1010 | 1500| 3010
  
 ## Output
 Figures that can be saved with right click or dragging to Desktop.
