@@ -6,7 +6,7 @@
  In order to make it work you need to visit the webpage and upload your database there. Alternatevily you can download the files and use the in RStudio in you computer.
  
 ## Input
- An Excel file  with formant values and the following format:
+ An Excel file  with formant values and the following format (an example is also provided in this same repository):
   
 vocal | f1 | f2 | f3
 ------------ | ------------- | ------------- | -------------
