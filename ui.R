@@ -19,12 +19,24 @@ ui <- fluidPage(
       # Horizontal line ----
       tags$hr(),
       
+      
+      radioButtons("normalization_method", "Choose a normalization method:",
+                   choices = list("Not normalized" = "waw",
+                                  "Normalized Bark" = "bark",
+                                  "Normalized Lobanov" = "lobanov",
+                                  "Normalized Watt & Fabricius" = "watfabricius"),
+                   selected = "lobanov"),
+      tags$hr(),
+      
+      
       # Input: Select number of rows to display ----
       checkboxGroupInput("display", "Figures",
                    choices = c("2D figures" = "twoD", "3D figures" = "threeD"),
                    selected = c("twoD","threeD")),
-      
     ),
+    
+    
+    
     
     # Main panel for displaying outputs ----
     mainPanel(
@@ -32,9 +44,14 @@ ui <- fluidPage(
       tabsetPanel(type = "tabs",
                   tabPanel("Graphs", # Output: Data file ----
                            h4("Graphs"),
+                           
+                           textOutput("selected_method"),
+                
                            tableOutput("contents"),
                            plotOutput("plot1"),
-                           plotOutput("plot2")
+                           plotOutput("plot2"),
+                           plotOutput("bark_plot")
+                           
                   ),
                   # tab con la rubrica ----
                   
@@ -58,7 +75,7 @@ ui <- fluidPage(
                   ),
                   # tab citar ----
                   tabPanel("Citing information",
-                           tags$b("ELvira-García, Wendy. 2021. A RShiny interface for plotting vowel formants. [RShiny App]")
+                           tags$b("Elvira-García, Wendy. 2021. A RShiny interface for plotting vowel formants. [RShiny App]")
                   )
                 
       )
