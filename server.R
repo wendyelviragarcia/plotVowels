@@ -79,11 +79,14 @@ server <- function(input, output) {
     
     # Graficar 2D
     ggplot(df_norm, aes(x = f2, y = f1, color = vowel)) +
-      geom_point(size = 2, alpha = 0.6) +
+      geom_point(size = 2, alpha = 0.4) +
       stat_ellipse(aes(group = vowel), level = 0.68, type = "norm", linewidth = 1) +
       geom_text(data = centroids,
+                aes(x = f2_mean, y = f1_mean, label = vowel),
+                fontface = "bold", size = 11, inherit.aes = FALSE, color = "white") +
+      geom_text(data = centroids,
                 aes(x = f2_mean, y = f1_mean, label = vowel, color = vowel),
-                fontface = "bold", size = 6, inherit.aes = FALSE) +
+                size = 10, inherit.aes = FALSE) +
       scale_x_reverse() +
       scale_y_reverse() +
       scale_color_brewer(palette = "Dark2") +
