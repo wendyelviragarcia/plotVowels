@@ -1,7 +1,7 @@
 # vowel Figures
  Plots vowels in 2D (using phonR package) and 3D (using scatterplot)
 
- This is a Rshiny app hosted [here](https://wendyelvira.shinyapps.io/plotVowels/)
+ This is a Rshiny app hosted [here]([https://wendyelvira.shinyapps.io/plotVowels/](https://parlab.ub.edu/plot_vowels/))
 
 In order to make it work you need to visit the webpage and upload your database there. Alternatevily you can download the files and use the in RStudio in you computer.
  
@@ -20,4 +20,4 @@ Figures that can be saved with right click or dragging to Desktop.
 ![image](3D.png)
 
 >[!TIP]
-> Elvira-García, Wendy. 2021. A RShiny interface for plotting vowel formants. [RShiny App]
+> Elvira-García, Wendy. 2021. A RShiny interface for plotting vowel formants. https://parlab.ub.edu/plot_vowels/ [RShiny App]
